@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Car Cloud App</string>
+    <string name="Password">Contraseña</string>
+    <string name="Register_btn">Crear cuenta</string>
+    <string name="Start_session_btn">Iniciar Sesión</string>
+    <string name="Welcome_textview">Bienvenido</string>
+    <string name="have_an_account_textview">¿Quieres unirte a nosotros?</string>
+    <string name="surname">Apellidos</string>
+    <string name="Adress">Dirección</string>
+    <string name="Phone_number">Telefono</string>
+    <string name="Name">Nombre</string>
+    <string name="E_mail">E-mail</string>
+    <string name="Create_account">Validar Cuenta</string>
+    <string name="Account_data">Datos de la Cuenta</string>
+    <string name="Menú">Menú Principal</string>
+    <string name="See_Photos">Ir a la Galería</string>
+    <string name="Upload_photo">Subir Foto</string>
+    <string name="Logout">Cerrar Sesion</string>
+
+</resources>
