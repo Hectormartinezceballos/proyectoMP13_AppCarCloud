@@ -1,5 +1,7 @@
 package com.example.carcloudapp.Adaptador;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ActivityChooserView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +27,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.carcloudapp.Objetos.Foto;
 import com.example.carcloudapp.R;
+import com.example.carcloudapp.Ver_fotos;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +36,9 @@ import com.google.firebase.storage.StorageReference;
 
 
 public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewHolder> {
+
+    FirebaseStorage storage=FirebaseStorage.getInstance();
+    StorageReference storageRef;
 
     //************************nuevo metodo context adaptador para pruebas glide debajo
     private static  Context ctx;
@@ -42,9 +49,9 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
     };
 
 
+
 //***********************************************************************
-    FirebaseStorage storage=FirebaseStorage.getInstance();
-    StorageReference storageRef;
+
 
 
     /**
@@ -70,8 +77,9 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
         //cargar foto firebase
         //********************************************************************************************************************
        //**********************************espacio para pruebas*************************************************************
-        /*Glide.with(ctx.getApplicationContext())
-                .load(storageRef.toString())
+
+        /*Glide.with( )
+                .load(model.getUrl())
                .listener(new RequestListener<Drawable>() {
                    @Override
                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {

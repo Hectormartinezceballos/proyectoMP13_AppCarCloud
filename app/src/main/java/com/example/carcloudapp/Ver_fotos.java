@@ -25,10 +25,10 @@ public class Ver_fotos extends AppCompatActivity {
     FirebaseFirestore mFirestore=FirebaseFirestore.getInstance();
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
-    String usuario=user.getUid().toString();
+    String usuario=user.getUid();
     //********************************************************************en pruebas debajo
     FirebaseStorage storage=FirebaseStorage.getInstance();
-    StorageReference storageRef;
+   // StorageReference storageRef=storage.getReferenceFromUrl(usuario);
     public static Context ctx;
 
 
@@ -42,14 +42,13 @@ public class Ver_fotos extends AppCompatActivity {
         System.out.println();
         System.out.println("users/"+usuario+"/Fotos");
         System.out.println();
-        CollectionReference query=mFirestore.collection("users/"+usuario+"/Fotos");///el problema esta aqui con el nombre del usuario hay que sacarlo
+        CollectionReference query=mFirestore.collection("users/"+usuario+"/Fotos");
         FirestoreRecyclerOptions<Foto> firestoreRecyclerOptions=new FirestoreRecyclerOptions.Builder<Foto>().setQuery(query,Foto.class).build();
         mAdapter=new FotoAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         recyclerViewFoto.setAdapter(mAdapter);
         //************en pruebas debajo para glide
-        //ctx=getApplicationContext();
-        // mAdapter.adaptador(ctx);//¿pasara el contexto de aqui al adaptador ?
+
 
         //*********************************
 

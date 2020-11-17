@@ -123,7 +123,7 @@ public class Subir_fotos extends AppCompatActivity {
 
             //StorageReference filepath = mStorageRef.child("Fotos 2").child(uri.getLastPathSegment());//almacena las fotos en fotos 2 en el firebase storage revisar para poder crear carpetas y renombrar***************
             //para pruebas como sacar las carpetas existentes en firebase
-            final StorageReference filepath = mStorageRef.child(carpeta.getText().toString()).child(nombre.getText().toString());//Funciona pone nombre a la carpeta y al archivo en el Firebase Storage
+            final StorageReference filepath = mStorageRef.child(user.getUid()).child(carpeta.getText().toString()).child(nombre.getText().toString());//Funciona pone nombre a la carpeta y al archivo en el Firebase Storage
             //********************************************************************************************************************************************************
 
 
