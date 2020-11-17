@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Principal"></activity>
+        <activity android:name=".Subir_fotos"></activity>
+        <activity android:name=".Ver_fotos" />
         <activity android:name=".PantallaPrincipal" />
         <activity android:name=".MainActivity">
             <intent-filter>

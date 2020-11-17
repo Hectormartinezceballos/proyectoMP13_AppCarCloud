@@ -11,6 +11,7 @@
         android:id="@+id/nombre_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/Name"
         android:inputType="textPersonName"
@@ -23,14 +24,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datos_registro_textview"
-        app:layout_constraintVertical_bias="0.028"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <EditText
         android:id="@+id/apellidos_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/surname"
         android:inputType="textPersonName"
@@ -41,50 +42,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_registro"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_registro" />
 
-    <EditText
-        android:id="@+id/telefono_registro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/Phone_number"
-        android:inputType="phone"
-        android:textAlignment="center"
-        android:textColor="@color/white_text"
-        android:textColorHint="@color/white_text"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccion_registro"
-        android:autofillHints="" />
-
-    <EditText
-        android:id="@+id/direccion_registro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/Adress"
-        android:inputType="textPostalAddress"
-        android:textAlignment="center"
-        android:textColor="@color/white_text"
-        android:textColorHint="@color/white_text"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contraseña_registro"
-        android:autofillHints="" />
 
     <EditText
         android:id="@+id/email_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/E_mail"
         android:inputType="textEmailAddress"
@@ -95,14 +61,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apellidos_registro"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/apellidos_registro" />
 
     <EditText
         android:id="@+id/contraseña_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/Password"
         android:inputType="textPassword"
@@ -113,8 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_registro"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/email_registro" />
 
     <Button
         android:id="@+id/btn_validar"
@@ -126,10 +91,11 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telefono_registro"
-        app:layout_constraintVertical_bias="0.832" />
+
+        app:layout_constraintTop_toBottomOf="@+id/contraseña_registro"
+        app:layout_constraintVertical_bias="0.423" />
 
     <TextView
         android:id="@+id/datos_registro_textview"

@@ -64,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.getCurrentUser();
+
+        FirebaseUser logedUser=mAuth.getCurrentUser();
+        if(logedUser!=null){
+            updateUI(logedUser);
+        }
 
 
 
@@ -92,11 +96,25 @@ public class MainActivity extends AppCompatActivity {
                     if(task.getException()instanceof FirebaseAuthUserCollisionException){
                         Toast.makeText(MainActivity.this, "El usuario ya existe",Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(MainActivity.this,"No fue posible iniciar sesion",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"Usuario, email y/o contraseña incorrectos",Toast.LENGTH_LONG).show();
                     }
                 }
 
             }
         });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null){
+            Intent intent = new Intent(MainActivity.this, PantallaPrincipal.class);
+            startActivity(intent);
+            finish();
+
+        } else {
+
+                etpassword.setError("Usuario, email y/o contraseña incorrectos");
+                etpassword.requestFocus();
+            }
+
     }
 }

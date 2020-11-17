@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,15 +33,24 @@ public class PantallaPrincipal extends AppCompatActivity {
      private TextView bienvenida;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private static final int parametro =1;
+
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore mData;
+
     private ProgressDialog mprogressdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
+
         mAuth=FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
+        mData=FirebaseFirestore.getInstance();
+
         mprogressdialog=new ProgressDialog(this);
+
 
         bienvenida=findViewById(R.id.bienvenido_textView);
         btngaleria=findViewById(R.id.Galeria_button);
@@ -50,7 +61,8 @@ public class PantallaPrincipal extends AppCompatActivity {
         btngaleria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            Intent intent=new Intent(PantallaPrincipal.this,Ver_fotos.class);
+            startActivity(intent);
             }
         });
 
@@ -59,8 +71,9 @@ public class PantallaPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               abrirFotoGaleria();
-
+               //abrirFotoGaleria();
+                Intent intent=new Intent(PantallaPrincipal.this,Subir_fotos.class);
+                startActivity(intent);
 
             }
         });
@@ -83,43 +96,5 @@ public class PantallaPrincipal extends AppCompatActivity {
         super.onStart();
     }
 
-    private void abrirFotoGaleria(){
 
-        //Abrir la galeria
-        Intent intent=new Intent();
-        intent.setType("image/*");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),parametro);
-
-
-
-    }
-    //Subida de fotos al Firebase Storage*********************************
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==parametro && resultCode==RESULT_OK){
-            final Uri uri=data.getData();
-            //mensaje de subida de foto a firebase
-            mprogressdialog.setTitle("Almacenando foto ");
-            mprogressdialog.setMessage("Almacenando foto en firebase");
-            mprogressdialog.setCancelable(false);
-            mprogressdialog.show();
-
-            StorageReference filepath = mStorageRef.child("Fotos 2").child(uri.getLastPathSegment());//almacena las fotos en fotos 2 en el firebase storage revisar para poder crear carpetas y renombrar***************
-
-
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    mprogressdialog.dismiss();
-                    Task<Uri> UrldescargarFoto=taskSnapshot.getStorage().getDownloadUrl();
-
-                    Toast.makeText(PantallaPrincipal.this,"Foto subida con exito",Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-
-    }
 }
