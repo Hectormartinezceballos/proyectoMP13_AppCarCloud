@@ -75,17 +75,15 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
     protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull Foto model) {
         holder.textViewNombre.setText(model.getNombre());
         holder.textViewDescripcion.setText(model.getDescripcion());
-        holder.imageViewFoto.setText(model.getUrl());
         holder.imageview2.setImageResource(R.drawable.ic_launcher_background);
 
-        //cargar foto firebase
-        //********************************************************************************************************************
-       //**********************************espacio para pruebas*************************************************************
+        //cargar foto desde URL en firebase
 
        String string=storage.toString();
         Glide.with(ctx )
                 .load(model.getUrl())
-               .listener(new RequestListener<Drawable>() {
+                .centerCrop()
+                .listener(new RequestListener<Drawable>() {
                    @Override
                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                        holder.mProgressbar.setVisibility(View.GONE);
@@ -104,8 +102,6 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
 
                 .into(holder.imageview2);
 
-
-        //*********************************************************************************************************************
     }
 
     @NonNull
@@ -119,7 +115,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
 
         TextView textViewNombre;
         TextView textViewDescripcion;
-        TextView imageViewFoto;//???????????????????????????????????????
+
         ImageView imageview2;
         ProgressBar mProgressbar;
 
@@ -128,7 +124,6 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
 
             textViewNombre=itemView.findViewById(R.id.textView_nombre);
             textViewDescripcion=itemView.findViewById(R.id.textView_descripcion);
-            imageViewFoto=itemView.findViewById(R.id.imageView_foto);
             imageview2=itemView.findViewById(R.id.imageView2);
             mProgressbar=itemView.findViewById(R.id.progressBar);
 

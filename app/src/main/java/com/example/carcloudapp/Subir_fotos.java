@@ -1,12 +1,7 @@
 package com.example.carcloudapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentProvider;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.carcloudapp.Objetos.Foto;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,9 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,7 +33,7 @@ public class Subir_fotos extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
-    private FirebaseStorage storage;///*****
+
     private FirebaseUser user;
     private FirebaseFirestore mData;
     private DatabaseReference mdatabaseReference;
@@ -61,8 +57,6 @@ public class Subir_fotos extends AppCompatActivity {
 
         mAuth= FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
-        //storage=FirebaseStorage.getInstance();//****
-        //mStorageRef=storage.getReference();//******
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mData=FirebaseFirestore.getInstance();
 
@@ -74,7 +68,13 @@ public class Subir_fotos extends AppCompatActivity {
         nombre       =findViewById(R.id.nombre_foto);
         descripcion  =findViewById(R.id.Descripcion_foto);
         carpeta      =findViewById(R.id.Carpeta_foto);
+        foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            controladorimagen(Subir_fotos.this,parametro);
 
+            }
+        });
 
         subirfoto.setOnClickListener(new View.OnClickListener() {
 
@@ -127,16 +127,12 @@ public class Subir_fotos extends AppCompatActivity {
             mprogressdialog.setMessage("Almacenando foto en firebase");
             mprogressdialog.setCancelable(false);
             mprogressdialog.show();
+            //le ponemos la direccion donde se va a guardar en filebaseStorage.
+            final StorageReference filepath = mStorageRef.child(user.getUid()).child(carpeta.getText().toString()).child(nombre.getText().toString());
 
-            //StorageReference filepath = mStorageRef.child("Fotos 2").child(uri.getLastPathSegment());//almacena las fotos en fotos 2 en el firebase storage revisar para poder crear carpetas y renombrar***************
-            //para pruebas como sacar las carpetas existentes en firebase
-            final StorageReference filepath = mStorageRef.child(user.getUid()).child(carpeta.getText().toString()).child(nombre.getText().toString());//Funciona pone nombre a la carpeta y al archivo en el Firebase Storage
-            //********************************************************************************************************************************************************
-
-
-            //********************************************************************************************************************************************************
            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
+               //Sube la foto a firebase Storage y recupera el url que almacenamos en el metodo urlconector para crear un objeto del tipo foto
+               @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mprogressdialog.dismiss();
                     //Task<Uri> urldescargarFoto=taskSnapshot.getStorage().getDownloadUrl();
@@ -146,6 +142,7 @@ public class Subir_fotos extends AppCompatActivity {
                             String url=task.getResult().toString();
                             Log.i("URL",url);
                             urlconector(url);
+
                         }
                     });
                 }
@@ -158,12 +155,7 @@ public class Subir_fotos extends AppCompatActivity {
                        }
                    });
                     Toast.makeText(Subir_fotos.this,"Foto subida con exito",Toast.LENGTH_LONG).show();
-                    //*********************************************************************************************
 
-                    //urlconector(url);
-
-             //   }
-            //});
         }
 
     }
@@ -179,17 +171,7 @@ public class Subir_fotos extends AppCompatActivity {
                 .document(user.getUid())
                 .collection("Fotos")
                 .document(foto.getCarpeta())
-                //.collection(foto.getNombre())
-                //.add(foto)
                 .set(foto)
-                /*.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(),"Almacenado correctamente",Toast.LENGTH_LONG).show();
-                    }
-                })*/
-
-
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -198,7 +180,16 @@ public class Subir_fotos extends AppCompatActivity {
                 });
 
     }
-    //******************codigo de prueba
+    private void controladorimagen(Activity activity,Integer code){
+        //Abrir la galeria
+        Intent intent=new Intent();
+        intent.setType("image/*");
+
+        startActivityForResult(intent,parametro);
+
+
+    }
+
 
 
 }

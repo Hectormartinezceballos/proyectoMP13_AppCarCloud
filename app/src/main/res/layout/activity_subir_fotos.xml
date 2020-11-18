@@ -26,15 +26,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/Name"
-        android:textColorHint="@color/white_text"
+        android:inputType="text"
+        android:autofillHints=""
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_foto"
-        app:layout_constraintVertical_bias="0.033"
-        android:autofillHints=""
-        android:inputType="text" />
+        app:layout_constraintVertical_bias="0.033" />
 
     <EditText
         android:id="@+id/Descripcion_foto"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/resume"
-        android:textColorHint="@color/white_text"
+        android:textColorHint="@color/colorAccent"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombre_foto"
         app:layout_constraintVertical_bias="0.1"
-        android:autofillHints=""
         android:inputType="text" />
 
     <EditText
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/file_path"
-        android:textColorHint="@color/white_text"
+        android:textColorHint="@color/colorAccent"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Descripcion_foto"
         app:layout_constraintVertical_bias="0.162"
-        android:autofillHints=""
         android:inputType="text" />
 
 
