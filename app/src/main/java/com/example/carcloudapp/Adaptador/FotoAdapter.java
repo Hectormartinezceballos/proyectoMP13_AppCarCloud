@@ -31,6 +31,9 @@ import com.example.carcloudapp.Ver_fotos;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -39,6 +42,8 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
 
     FirebaseStorage storage=FirebaseStorage.getInstance();
     StorageReference storageRef;
+    FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    FirebaseUser user=mAuth.getCurrentUser();
 
     //************************nuevo metodo context adaptador para pruebas glide debajo
     private static  Context ctx;
@@ -77,6 +82,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
         //********************************************************************************************************************
        //**********************************espacio para pruebas*************************************************************
 
+       String string=storage.toString();
         Glide.with(ctx )
                 .load(model.getUrl())
                .listener(new RequestListener<Drawable>() {

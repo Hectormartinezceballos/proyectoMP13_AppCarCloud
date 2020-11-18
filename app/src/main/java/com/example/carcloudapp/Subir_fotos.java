@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,9 +40,12 @@ public class Subir_fotos extends AppCompatActivity {
     private FirebaseStorage storage;///*****
     private FirebaseUser user;
     private FirebaseFirestore mData;
-    private FirebaseDatabase databaseref;
+    private DatabaseReference mdatabaseReference;
+    private FirebaseDatabase mfirebaseDatabase;
     private ProgressDialog mprogressdialog;
     private static final int parametro=1;
+
+
 
     private Button subirfoto;
     private View foto;
@@ -61,6 +65,7 @@ public class Subir_fotos extends AppCompatActivity {
         //mStorageRef=storage.getReference();//******
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mData=FirebaseFirestore.getInstance();
+
 
         subirfoto=findViewById(R.id.button_subirfoto);
 
@@ -134,19 +139,31 @@ public class Subir_fotos extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mprogressdialog.dismiss();
-                    Task<Uri> urldescargarFoto=taskSnapshot.getStorage().getDownloadUrl();
-                    //pruebas para sacar por pantalla un url valido
-                    System.out.println(" ");
-                    intentoUrl=filepath.getDownloadUrl().toString();
-                    System.out.println(intentoUrl);
-                    System.out.println(" ");
+                    //Task<Uri> urldescargarFoto=taskSnapshot.getStorage().getDownloadUrl();
+                    filepath.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            String url=task.getResult().toString();
+                            Log.i("URL",url);
+                            urlconector(url);
+                        }
+                    });
+                }
+           })
+                   .addOnFailureListener(new OnFailureListener() {
+                       @Override
+                       public void onFailure(@NonNull Exception e) {
+                           //progressBar.setVisibility(View.GONE);
+                           Toast.makeText(Subir_fotos.this, "aaa "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                       }
+                   });
                     Toast.makeText(Subir_fotos.this,"Foto subida con exito",Toast.LENGTH_LONG).show();
                     //*********************************************************************************************
 
-                    urlconector(filepath.toString());
+                    //urlconector(url);
 
-                }
-            });
+             //   }
+            //});
         }
 
     }
@@ -154,6 +171,9 @@ public class Subir_fotos extends AppCompatActivity {
         
         //Conecta la url de la foto del storage creando una lista nueva en cloud firestore en la coleccion fotos dentro de la coleccion users
         Foto foto=new Foto(snombre,sdescripcion,scarpeta,url);
+        //Firebase data base en pruebas
+        mdatabaseReference=FirebaseDatabase.getInstance().getReference();
+        mdatabaseReference.child("users").child(user.getUid()).child("Carpetas").child(scarpeta).child("Fotos").child(snombre).setValue(foto);
 
         mData.collection("users")
                 .document(user.getUid())
@@ -178,5 +198,7 @@ public class Subir_fotos extends AppCompatActivity {
                 });
 
     }
+    //******************codigo de prueba
+
 
 }
