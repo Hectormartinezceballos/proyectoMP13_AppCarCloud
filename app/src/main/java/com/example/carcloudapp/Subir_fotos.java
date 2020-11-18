@@ -39,6 +39,7 @@ public class Subir_fotos extends AppCompatActivity {
     private FirebaseStorage storage;///*****
     private FirebaseUser user;
     private FirebaseFirestore mData;
+    private FirebaseDatabase databaseref;
     private ProgressDialog mprogressdialog;
     private static final int parametro=1;
 
@@ -52,6 +53,7 @@ public class Subir_fotos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_fotos);
         mprogressdialog=new ProgressDialog(this);
+
 
         mAuth= FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();

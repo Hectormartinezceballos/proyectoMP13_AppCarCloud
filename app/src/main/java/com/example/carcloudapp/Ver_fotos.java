@@ -44,7 +44,8 @@ public class Ver_fotos extends AppCompatActivity {
         System.out.println();
         CollectionReference query=mFirestore.collection("users/"+usuario+"/Fotos");
         FirestoreRecyclerOptions<Foto> firestoreRecyclerOptions=new FirestoreRecyclerOptions.Builder<Foto>().setQuery(query,Foto.class).build();
-        mAdapter=new FotoAdapter(firestoreRecyclerOptions);
+       ctx=getApplicationContext();
+        mAdapter=new FotoAdapter(firestoreRecyclerOptions,ctx);
         mAdapter.notifyDataSetChanged();
         recyclerViewFoto.setAdapter(mAdapter);
         //************en pruebas debajo para glide

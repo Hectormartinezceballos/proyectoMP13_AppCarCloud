@@ -44,9 +44,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
     private static  Context ctx;
 
 
-    public Context adaptador (Context ctex){
-      return ctx=ctex;
-    };
+
 
 
 
@@ -61,10 +59,11 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
      * @param options
      */
 
-    public FotoAdapter(@NonNull FirestoreRecyclerOptions<Foto> options) {
+    public FotoAdapter(@NonNull FirestoreRecyclerOptions<Foto> options,Context ctex) {
 
 
         super(options);
+        ctx=ctex;
     }
 
     @Override//Establece los valores de las vistas
@@ -78,7 +77,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
         //********************************************************************************************************************
        //**********************************espacio para pruebas*************************************************************
 
-        /*Glide.with( )
+        Glide.with(ctx )
                 .load(model.getUrl())
                .listener(new RequestListener<Drawable>() {
                    @Override
@@ -97,7 +96,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
                    }
                })
 
-                .into(holder.imageview2);*/
+                .into(holder.imageview2);
 
 
         //*********************************************************************************************************************
