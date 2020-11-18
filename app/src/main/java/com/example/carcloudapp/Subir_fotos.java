@@ -1,6 +1,6 @@
 package com.example.carcloudapp;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,14 +37,13 @@ public class Subir_fotos extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore mData;
     private DatabaseReference mdatabaseReference;
-    private FirebaseDatabase mfirebaseDatabase;
+
     private ProgressDialog mprogressdialog;
     private static final int parametro=1;
 
 
 
     private Button subirfoto;
-    private View foto;
     private EditText nombre,descripcion,carpeta;
     private String snombre,sdescripcion,scarpeta;
     private String intentoUrl;
@@ -63,18 +62,11 @@ public class Subir_fotos extends AppCompatActivity {
 
         subirfoto=findViewById(R.id.button_subirfoto);
 
-        foto =findViewById(R.id.view_foto);
+
 
         nombre       =findViewById(R.id.nombre_foto);
         descripcion  =findViewById(R.id.Descripcion_foto);
         carpeta      =findViewById(R.id.Carpeta_foto);
-        foto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            controladorimagen(Subir_fotos.this,parametro);
-
-            }
-        });
 
         subirfoto.setOnClickListener(new View.OnClickListener() {
 
@@ -180,15 +172,7 @@ public class Subir_fotos extends AppCompatActivity {
                 });
 
     }
-    private void controladorimagen(Activity activity,Integer code){
-        //Abrir la galeria
-        Intent intent=new Intent();
-        intent.setType("image/*");
 
-        startActivityForResult(intent,parametro);
-
-
-    }
 
 
 
