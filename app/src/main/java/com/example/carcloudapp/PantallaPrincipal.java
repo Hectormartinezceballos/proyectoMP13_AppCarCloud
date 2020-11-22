@@ -29,7 +29,7 @@ import java.io.File;
 
 public class PantallaPrincipal extends AppCompatActivity {
 
-    private Button btngaleria, btnsubirfoto, btncerrarsesion;
+    private Button btngaleria, btnsubirfoto,btnEditar, btncerrarsesion;
      private TextView bienvenida;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private static final int parametro =1;
@@ -55,9 +55,10 @@ public class PantallaPrincipal extends AppCompatActivity {
         bienvenida=findViewById(R.id.bienvenido_textView);
         btngaleria=findViewById(R.id.Galeria_button);
         btnsubirfoto=findViewById(R.id.SubirFoto_Button);
+        btnEditar=findViewById(R.id.Editar_foto);
         btncerrarsesion=findViewById(R.id.logout);
 
-        //al pulsar sobre el boton galeria
+        //al pulsar sobre el boton galeria cambiamos de activity a Ver_fotos
         btngaleria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,15 +67,22 @@ public class PantallaPrincipal extends AppCompatActivity {
             }
         });
 
-        //Al pulsar sobre el boton subir foto
+        //Al pulsar sobre el boton subir foto cambiamos de activity a Subir_fotos
         btnsubirfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               //abrirFotoGaleria();
                 Intent intent=new Intent(PantallaPrincipal.this,Subir_fotos.class);
                 startActivity(intent);
 
+            }
+        });
+        //Al pulsar sobre el b oton editar cambiamos de activity a Editar_fotos
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(PantallaPrincipal.this,Editar_fotos.class);
+                startActivity(intent);
             }
         });
 

@@ -1,11 +1,11 @@
 package com.example.carcloudapp;
 
+import android.content.Context;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.os.Bundle;
 
 import com.example.carcloudapp.Adaptador.FotoAdapter;
 import com.example.carcloudapp.Objetos.Foto;
@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class Ver_fotos extends AppCompatActivity {
 
@@ -44,16 +43,10 @@ public class Ver_fotos extends AppCompatActivity {
         System.out.println();
         CollectionReference query=mFirestore.collection("users/"+usuario+"/Fotos");
         FirestoreRecyclerOptions<Foto> firestoreRecyclerOptions=new FirestoreRecyclerOptions.Builder<Foto>().setQuery(query,Foto.class).build();
-       ctx=getApplicationContext();
+        ctx=getApplicationContext();
         mAdapter=new FotoAdapter(firestoreRecyclerOptions,ctx);
         mAdapter.notifyDataSetChanged();
         recyclerViewFoto.setAdapter(mAdapter);
-        //************en pruebas debajo para glide
-
-
-        //*********************************
-
-
 
     }
 
@@ -68,4 +61,6 @@ public class Ver_fotos extends AppCompatActivity {
         super.onStop();
         mAdapter.stopListening();
     }
+
+
 }
