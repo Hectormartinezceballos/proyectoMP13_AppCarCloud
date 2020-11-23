@@ -14,6 +14,11 @@ public class Foto {
         Carpeta = carpeta;
         Url = url;
     }
+    public Foto(String nombre,String descripcion,String carpeta){
+        Nombre = nombre;
+        Descripcion = descripcion;
+        Carpeta = carpeta;
+    }
 
     public String getId() {
         return Id;
