@@ -58,7 +58,7 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
         holder.nombre.setText(model.getNombre());
         holder.descripcion.setText(model.getDescripcion());
         holder.carpeta.setText(model.getCarpeta());
-        url=model.getUrl();
+//        url=model.getUrl();
 
 
         //cargar foto desde URL en firebase
@@ -94,15 +94,16 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 nombre1=holder.nombre.getText().toString();
                 descripcion1=holder.descripcion.getText().toString();
                 carpeta1=holder.carpeta.getText().toString();
-                url1=url;
+                url=model.getUrl(); //holder.getUrl();
 
 
-                Foto foto=new Foto(nombre1,descripcion1,carpeta1,url1);
+
+                Foto foto=new Foto(nombre1,descripcion1,carpeta1,url);
                 mData=FirebaseFirestore.getInstance();
                 mData.collection("users")
                         .document(user.getUid())
                         .collection("Fotos")
-                        .document(foto.getCarpeta())
+                        .document(foto.getId())
                         .set(foto)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
