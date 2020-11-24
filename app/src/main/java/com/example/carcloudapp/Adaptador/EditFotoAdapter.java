@@ -27,6 +27,7 @@ import com.example.carcloudapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -84,6 +85,7 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 })
 
                 .into(holder.Imageviewfoto);
+
         //Introducimos la funcionalidad en el boton actualizar y guardar datos en el cual podremos variar nombre, carpeta o descripción y guardar datos.
         holder.editarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +110,11 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                                 Toast.makeText(ctx,"No se ha podido añadir", Toast.LENGTH_SHORT).show();
                             }
                         });
+
                 Toast.makeText(ctx,"Cambios guardados correctamente",Toast.LENGTH_LONG).show();
             }
         });
-
+        //El botón borrar foto Borra los datos de la vista donde nos situemos y pulsemos el botón.
         holder.borrarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +124,8 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                         .collection("Fotos")
                         .document(model.getCarpeta())
                         .delete();
+
+
                 Toast.makeText(ctx,"Archivo eliminado",Toast.LENGTH_LONG).show();
             }
         });
