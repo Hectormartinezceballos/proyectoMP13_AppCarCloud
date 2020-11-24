@@ -41,7 +41,6 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
     FirebaseUser user=mAuth.getCurrentUser();
     private FirebaseFirestore mData;
     private static  Context ctx;
-    String url;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
@@ -90,11 +89,11 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
         holder.editarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre1,descripcion1,carpeta1,url1;
+                String nombre1,descripcion1,carpeta1,url;
                 nombre1=holder.nombre.getText().toString();
                 descripcion1=holder.descripcion.getText().toString();
                 carpeta1=holder.carpeta.getText().toString();
-                url=model.getUrl(); //holder.getUrl();
+                url=model.getUrl();
 
 
 
