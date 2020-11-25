@@ -2,64 +2,48 @@ package com.example.carcloudapp.Objetos;
 
 public class Foto {
 
-    private String Id, Nombre, Descripcion, Carpeta, Url;
+    private String nombre, descripcion, evento, url;
 
     public Foto() {
 
     }
 
-    public Foto(String nombre, String descripcion, String carpeta, String url) {
-        Nombre = nombre;
-        Descripcion = descripcion;
-        Carpeta = carpeta;
-        Url = url;
-    }
-    public Foto(String nombre,String descripcion,String carpeta){
-        Nombre = nombre;
-        Descripcion = descripcion;
-        Carpeta = carpeta;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
+    public Foto(String nombre, String descripcion, String evento, String url) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.evento = evento;
+        this.url = url;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
 
-    public String getCarpeta() {
-        return Carpeta;
+    public String getEvento() {
+        return evento;
     }
 
-    public void setCarpeta(String carpeta) {
-        Carpeta = carpeta;
+    public void setEvento(String evento) {
+        this.evento = evento;
     }
 
     public String getUrl() {
-        return Url;
+        return url;
     }
 
     public void setUrl(String url) {
-        Url = url;
+        this.url = url;
     }
-
-
-
 }

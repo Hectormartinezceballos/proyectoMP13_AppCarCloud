@@ -44,8 +44,8 @@ public class Subir_fotos extends AppCompatActivity {
 
 
     private Button subirfoto;
-    private EditText nombre,descripcion,carpeta;
-    private String snombre,sdescripcion,scarpeta;
+    private EditText nombre,descripcion,evento;
+    private String snombre,sdescripcion,sevento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class Subir_fotos extends AppCompatActivity {
         subirfoto    =findViewById(R.id.button_subirfoto);
         nombre       =findViewById(R.id.nombre_foto);
         descripcion  =findViewById(R.id.Descripcion_foto);
-        carpeta      =findViewById(R.id.Carpeta_foto);
+        evento      =findViewById(R.id.Carpeta_foto);
 
         subirfoto.setOnClickListener(new View.OnClickListener() {
 
@@ -69,13 +69,13 @@ public class Subir_fotos extends AppCompatActivity {
             public void onClick(View v) {
                 snombre      =nombre.getText().toString();
                 sdescripcion =descripcion.getText().toString();
-                scarpeta     =carpeta.getText().toString();
+                sevento     =evento.getText().toString();
                 if (snombre.isEmpty()) {
                     nombre.setError("Introduzca Nombre de Archivo");
                 }else if (sdescripcion.isEmpty()) {
                     descripcion.setError("Indique Breve Descripción");
-                }else if (scarpeta.isEmpty()) {
-                    carpeta.setError("Indique carpeta de almacenamiento");
+                }else if (sevento.isEmpty()) {
+                    evento.setError("Indique carpeta de almacenamiento");
                 }   else {
                     abrirFotoGaleria();
 
@@ -114,7 +114,7 @@ public class Subir_fotos extends AppCompatActivity {
             mprogressdialog.setCancelable(false);
             mprogressdialog.show();
             //le ponemos la direccion donde se va a guardar en filebaseStorage.
-            final StorageReference filepath = mStorageRef.child(user.getUid()).child(carpeta.getText().toString()).child(nombre.getText().toString());
+            final StorageReference filepath = mStorageRef.child(user.getUid()).child(nombre.getText().toString());
 
            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                //Sube la foto a firebase Storage y recupera el url que almacenamos en el metodo urlconector para crear un objeto del tipo foto
@@ -147,16 +147,12 @@ public class Subir_fotos extends AppCompatActivity {
     private void urlconector(String  url){
         
         //Conecta la url de la foto del storage creando una lista nueva en cloud firestore en la coleccion fotos dentro de la coleccion users
-        Foto foto=new Foto(snombre,sdescripcion,scarpeta,url);
-
-        //Firebase data base en pruebas
-        mdatabaseReference=FirebaseDatabase.getInstance().getReference();
-        mdatabaseReference.child("users").child(user.getUid()).child("Carpetas").child(scarpeta).child("Fotos").child(snombre).setValue(foto);
+        Foto foto=new Foto(snombre,sdescripcion,sevento,url);
 
         mData.collection("users")
                 .document(user.getUid())
                 .collection("Fotos")
-                .document(foto.getCarpeta())
+                .document(foto.getNombre())
                 .set(foto)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override

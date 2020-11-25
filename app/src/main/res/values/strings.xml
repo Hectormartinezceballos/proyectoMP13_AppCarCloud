@@ -17,9 +17,9 @@
     <string name="Upload_photo">Elegir y Subir Foto</string>
     <string name="Logout">Cerrar Sesion</string>
     <string name="resume">Breve Descripción</string>
-    <string name="file_path">Seleccione Carpeta</string>
     <string name="Editphoto_btn">Actualizar y Guardar datos </string>
     <string name="DeletePhoto_btn">Borrar Foto</string>
+    <string name="event">Indica donde lo viste</string>
     <string name="EditData_btn">Editar o Borrar fotos</string>
 
 </resources>

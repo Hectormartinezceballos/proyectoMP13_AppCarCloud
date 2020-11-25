@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapter.ViewHolder> {
     FirebaseStorage storage=FirebaseStorage.getInstance();
-    StorageReference storageRef;
+
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private FirebaseFirestore mData;
@@ -59,13 +59,10 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
     protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull final Foto model) {
         holder.nombre.setText(model.getNombre());
         holder.descripcion.setText(model.getDescripcion());
-        holder.carpeta.setText(model.getCarpeta());
-//        url=model.getUrl();
-
+        holder.evento.setText(model.getEvento());
 
         //cargar foto desde URL en firebase
 
-        String string=storage.toString();
         Glide.with(ctx )
                 .load(model.getUrl())
                 .centerCrop()
@@ -89,30 +86,31 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 .into(holder.Imageviewfoto);
 
         //Introducimos la funcionalidad en el boton actualizar y guardar datos en el cual podremos variar nombre, carpeta o descripción y guardar datos.
+
         holder.editarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre1,descripcion1,carpeta1,url;
+                String nombre1,descripcion1,evento1,url;
                 nombre1=holder.nombre.getText().toString();
                 descripcion1=holder.descripcion.getText().toString();
-                carpeta1=holder.carpeta.getText().toString();
+                evento1=holder.evento.getText().toString();
                 url=model.getUrl();
 
                 Map<String,Object> map=new HashMap<>();
-                map.put("carpeta",carpeta1);
-                map.put("nombre",nombre1);
+                map.put("evento",evento1);
+//                map.put("nombre",nombre1);
                 map.put("descripcion",descripcion1);
                 map.put("url",url);
 
 
 
 
-                Foto foto=new Foto(nombre1,descripcion1,carpeta1,url);
+//                Foto foto=new Foto(nombre1,descripcion1,evento1,url);
                 mData=FirebaseFirestore.getInstance();
                 mData.collection("users")
                         .document(user.getUid())
                         .collection("Fotos")
-                         .document(model.getCarpeta())
+                         .document(model.getNombre())
 //                        .set(foto)
                         .update(map)
                         .addOnFailureListener(new OnFailureListener() {
@@ -125,7 +123,9 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 Toast.makeText(ctx,"Cambios guardados correctamente",Toast.LENGTH_LONG).show();
             }
         });
+
         //El botón borrar foto Borra los datos de la vista donde nos situemos y pulsemos el botón.
+
         holder.borrarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +133,7 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 mData.collection("users")
                         .document(user.getUid())
                         .collection("Fotos")
-                        .document(model.getCarpeta())
+                        .document(model.getNombre())
                         .delete();
 
 
@@ -155,7 +155,8 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView Imageviewfoto;
-        EditText nombre,descripcion,carpeta;
+        EditText descripcion,evento;
+        TextView nombre;
         ProgressBar mProgressbar;
         Button editarFoto,borrarFoto;
 
@@ -166,7 +167,7 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
             Imageviewfoto=itemView.findViewById(R.id.imageViewFoto);
             nombre=itemView.findViewById(R.id.EditText_nombre);
             descripcion=itemView.findViewById(R.id.EditText_descripcion);
-            carpeta=itemView.findViewById(R.id.EditText_carpeta);
+            evento=itemView.findViewById(R.id.EditText_carpeta);
             editarFoto=itemView.findViewById(R.id.btn_editarfoto);
             borrarFoto=itemView.findViewById(R.id.btn_borrarfoto);
 
