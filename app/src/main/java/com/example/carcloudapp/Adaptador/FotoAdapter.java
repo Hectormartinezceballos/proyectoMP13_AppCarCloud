@@ -48,6 +48,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
     protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull Foto model) {
         holder.textViewNombre.setText(model.getNombre());
         holder.textViewDescripcion.setText(model.getDescripcion());
+        holder.textViewEvento.setText(model.getEvento());
         holder.imageview2.setImageResource(R.drawable.ic_launcher_background);
 
         //carga foto desde URL en firebase
@@ -73,6 +74,15 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
                })
 
                 .into(holder.imageview2);
+//              ////nueva funcionalidad Al pulsar foto pasar al menú de edición de datos.
+//              holder.imageview2.setOnClickListener(new View.OnClickListener() {
+//                  @Override
+//                  public void onClick(View v) {
+//
+//
+//
+//                  }
+//              });
 
     }
 
@@ -87,6 +97,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
 
         TextView textViewNombre;
         TextView textViewDescripcion;
+        TextView textViewEvento;
 
         ImageView imageview2;
         ProgressBar mProgressbar;
@@ -98,6 +109,7 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
             textViewDescripcion=itemView.findViewById(R.id.textView_descripcion);
             imageview2=itemView.findViewById(R.id.imageView2);
             mProgressbar=itemView.findViewById(R.id.progressBar);
+            textViewEvento=itemView.findViewById(R.id.textView_evento);
 
         }
     }
