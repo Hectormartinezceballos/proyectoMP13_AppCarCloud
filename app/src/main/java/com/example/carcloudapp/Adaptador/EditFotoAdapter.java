@@ -34,6 +34,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapter.ViewHolder> {
     FirebaseStorage storage=FirebaseStorage.getInstance();
     StorageReference storageRef;
@@ -95,6 +98,13 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 carpeta1=holder.carpeta.getText().toString();
                 url=model.getUrl();
 
+                Map<String,Object> map=new HashMap<>();
+                map.put("carpeta",carpeta1);
+                map.put("nombre",nombre1);
+                map.put("descripcion",descripcion1);
+                map.put("url",url);
+
+
 
 
                 Foto foto=new Foto(nombre1,descripcion1,carpeta1,url);
@@ -102,8 +112,9 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                 mData.collection("users")
                         .document(user.getUid())
                         .collection("Fotos")
-                        .document(foto.getId())
-                        .set(foto)
+                         .document(model.getCarpeta())
+//                        .set(foto)
+                        .update(map)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
