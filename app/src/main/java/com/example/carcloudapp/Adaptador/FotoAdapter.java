@@ -74,15 +74,15 @@ public class FotoAdapter extends FirestoreRecyclerAdapter<Foto,FotoAdapter.ViewH
                })
 
                 .into(holder.imageview2);
-//              ////nueva funcionalidad Al pulsar foto pasar al menú de edición de datos.
-//              holder.imageview2.setOnClickListener(new View.OnClickListener() {
-//                  @Override
-//                  public void onClick(View v) {
-//
-//
-//
-//                  }
-//              });
+              ////nueva funcionalidad Al pulsar foto pasar al menú de edición de datos.
+              holder.imageview2.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+
+
+
+                  }
+              });
 
     }
 

@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -148,6 +149,7 @@ public class Subir_fotos extends AppCompatActivity {
         
         //Conecta la url de la foto del storage creando una lista nueva en cloud firestore en la coleccion fotos dentro de la coleccion users
         Foto foto=new Foto(snombre,sdescripcion,sevento,url);
+        Query documentos=mData.collection("users/"+user.getUid()+"/Fotos").whereEqualTo("nombre",true);
 
         mData.collection("users")
                 .document(user.getUid())
@@ -162,5 +164,4 @@ public class Subir_fotos extends AppCompatActivity {
                 });
 
     }
-
 }

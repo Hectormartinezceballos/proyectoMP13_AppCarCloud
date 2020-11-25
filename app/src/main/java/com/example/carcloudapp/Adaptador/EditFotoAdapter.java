@@ -98,20 +98,18 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
 
                 Map<String,Object> map=new HashMap<>();
                 map.put("evento",evento1);
-//                map.put("nombre",nombre1);
                 map.put("descripcion",descripcion1);
                 map.put("url",url);
 
 
 
 
-//                Foto foto=new Foto(nombre1,descripcion1,evento1,url);
+
                 mData=FirebaseFirestore.getInstance();
                 mData.collection("users")
                         .document(user.getUid())
                         .collection("Fotos")
                          .document(model.getNombre())
-//                        .set(foto)
                         .update(map)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override

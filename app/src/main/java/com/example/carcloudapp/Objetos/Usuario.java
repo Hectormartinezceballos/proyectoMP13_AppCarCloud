@@ -2,7 +2,7 @@ package com.example.carcloudapp.Objetos;
 
 public class Usuario {
 
-    private String Nombre,Apellidos,Email,Password,Telefono,Direccion;
+    private String Nombre,Apellidos,Email,Password;
 
     public Usuario() {}//constructor vacio
 
@@ -46,21 +46,7 @@ public class Usuario {
         Password = password;
     }
 
-    public String getTelefono() {
-        return Telefono;
-    }
 
-    public void setTelefono(String telefono) {
-        Telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return Direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        Direccion = direccion;
-    }
 
 
 }
