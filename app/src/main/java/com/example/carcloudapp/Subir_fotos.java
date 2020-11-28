@@ -76,7 +76,7 @@ public class Subir_fotos extends AppCompatActivity {
                 }else if (sdescripcion.isEmpty()) {
                     descripcion.setError("Indique Breve Descripción");
                 }else if (sevento.isEmpty()) {
-                    evento.setError("Indique carpeta de almacenamiento");
+                    evento.setError("Indique  Evento");
                 }   else {
                     abrirFotoGaleria();
 
