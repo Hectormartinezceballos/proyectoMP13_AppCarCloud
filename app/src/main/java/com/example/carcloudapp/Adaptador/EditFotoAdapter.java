@@ -1,6 +1,7 @@
 package com.example.carcloudapp.Adaptador;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -39,7 +40,8 @@ import java.util.Map;
 
 public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapter.ViewHolder> {
     FirebaseStorage storage=FirebaseStorage.getInstance();
-
+    StorageReference mstorageref=storage.getReference();
+    StorageReference deletestorageref;
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private FirebaseFirestore mData;
@@ -133,9 +135,24 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
                         .collection("Fotos")
                         .document(model.getNombre())
                         .delete();
+                deletestorageref=mstorageref.child(user.getUid()+"/"+model.getNombre());
+                deletestorageref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // File deleted successfully
+                        Toast.makeText(ctx,"Storage eliminado",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                        Toast.makeText(ctx,"No se pudo borrar el archivo",Toast.LENGTH_LONG).show();
+                    }
+                });
 
 
                 Toast.makeText(ctx,"Archivo eliminado",Toast.LENGTH_LONG).show();
+
             }
         });
 
