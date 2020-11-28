@@ -125,7 +125,6 @@ public class Subir_fotos extends AppCompatActivity {
                         }
                     });
 
-
                 }
             }
         });
