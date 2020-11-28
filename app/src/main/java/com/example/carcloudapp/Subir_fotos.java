@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -98,23 +100,28 @@ public class Subir_fotos extends AppCompatActivity {
                 }   else {
                     String path=("users/"+user.getUid()+"/Fotos/"+snombre);
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    DocumentReference reference =mData.collection("users")
+                            .document(user.getUid())
+                            .collection("Fotos")
+                            .document(snombre);
+                    reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null){
-                                // el nodo no tiene hijos
-                                abrirFotoGaleria();
-                            }else{
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
 
-                                nombre.setError("Este valor ya existe debes introducir uno valido");
+                                if (document.exists()) {
+                                    Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                                    nombre.setError("El archivo ya existe");
+                                    return;
+                                } else if (document.exists()==false){
+                                    Log.d("TAG", "No such document");
+                                }   abrirFotoGaleria();
+                            } else {
+                                Log.d("TAG", "get failed with ", task.getException());
+                                nombre.setError("Error de conexion");
+
                             }
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
                         }
                     });
 
