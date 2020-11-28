@@ -22,13 +22,22 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class Subir_fotos extends AppCompatActivity {
 
@@ -54,6 +63,7 @@ public class Subir_fotos extends AppCompatActivity {
         mprogressdialog=new ProgressDialog(this);
 
 
+
         mAuth       = FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
         mStorageRef  =FirebaseStorage.getInstance().getReference();
@@ -71,6 +81,14 @@ public class Subir_fotos extends AppCompatActivity {
                 snombre      =nombre.getText().toString();
                 sdescripcion =descripcion.getText().toString();
                 sevento     =evento.getText().toString();
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
                 if (snombre.isEmpty()) {
                     nombre.setError("Introduzca Nombre de Archivo");
                 }else if (sdescripcion.isEmpty()) {
@@ -78,7 +96,28 @@ public class Subir_fotos extends AppCompatActivity {
                 }else if (sevento.isEmpty()) {
                     evento.setError("Indique  Evento");
                 }   else {
-                    abrirFotoGaleria();
+                    String path=("users/"+user.getUid()+"/Fotos/"+snombre);
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot == null){
+                                // el nodo no tiene hijos
+                                abrirFotoGaleria();
+                            }else{
+
+                                nombre.setError("Este valor ya existe debes introducir uno valido");
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
             }
@@ -164,4 +203,6 @@ public class Subir_fotos extends AppCompatActivity {
                 });
 
     }
+
+
 }
