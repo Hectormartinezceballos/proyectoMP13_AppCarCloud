@@ -157,6 +157,9 @@ public class Subir_fotos extends AppCompatActivity {
                             Log.i("URL",url);
                             urlconector(url);
                             mprogressdialog.dismiss();
+                            Toast.makeText(Subir_fotos.this,"Foto subida con exito",Toast.LENGTH_LONG).show();
+                            Intent principal=new Intent(Subir_fotos.this,PantallaPrincipal.class);
+                            startActivity(principal);
                         }
                     });
                 }
@@ -168,7 +171,7 @@ public class Subir_fotos extends AppCompatActivity {
                            Toast.makeText(Subir_fotos.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
                        }
                    });
-                    Toast.makeText(Subir_fotos.this,"Foto subida con exito",Toast.LENGTH_LONG).show();
+
 
         }
 
