@@ -38,8 +38,6 @@ public class Subir_fotos extends AppCompatActivity {
 
     private FirebaseUser user;
     private FirebaseFirestore mData;
-    private DatabaseReference mdatabaseReference;
-
     private ProgressDialog mprogressdialog;
     private static final int parametro=1;
 
