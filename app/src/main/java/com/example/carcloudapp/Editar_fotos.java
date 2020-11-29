@@ -56,12 +56,6 @@ public class Editar_fotos extends AppCompatActivity {
             super.onStop();
             mAdapter.stopListening();
         }
-       private void editarElementosFireBase() {
-            String FotoId="users/"+usuario+"/Fotos/".toString();
-            mFirestore.collection(FotoId);
 
-
-
-       }
 
 }

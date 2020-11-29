@@ -2,7 +2,6 @@ package com.example.carcloudapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,31 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.carcloudapp.Objetos.Foto;
 import com.example.carcloudapp.Objetos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etnombre,etapellidos,etemail,etpassword,etphone,etdireccion;
+    private EditText etnombre,etapellidos,etemail,etpassword;
     private Button btvalidarcuenta;
     private FirebaseAuth mAuth;
-    private String email,password,nombre,apellidos,telefono,direccion;
+    private String email,password,nombre,apellidos;
     private FirebaseFirestore mData=FirebaseFirestore.getInstance();
     private FirebaseUser user;
 

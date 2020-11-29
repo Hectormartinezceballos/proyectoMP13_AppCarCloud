@@ -22,24 +22,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class Subir_fotos extends AppCompatActivity {
 
@@ -83,14 +73,8 @@ public class Subir_fotos extends AppCompatActivity {
                 snombre      =nombre.getText().toString();
                 sdescripcion =descripcion.getText().toString();
                 sevento     =evento.getText().toString();
-////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
+                //Esta parte se encarga de no dejar avanzar si no estan todos los campos llenos
                 if (snombre.isEmpty()) {
                     nombre.setError("Introduzca Nombre de Archivo");
                 }else if (sdescripcion.isEmpty()) {
@@ -98,8 +82,7 @@ public class Subir_fotos extends AppCompatActivity {
                 }else if (sevento.isEmpty()) {
                     evento.setError("Indique  Evento");
                 }   else {
-                    String path=("users/"+user.getUid()+"/Fotos/"+snombre);
-
+                    //Aquí se consulta si existe algun archivo con el mismo nombre y lo notifica o deja crearlo
                     DocumentReference reference =mData.collection("users")
                             .document(user.getUid())
                             .collection("Fotos")
@@ -194,7 +177,6 @@ public class Subir_fotos extends AppCompatActivity {
         
         //Conecta la url de la foto del storage creando una lista nueva en cloud firestore en la coleccion fotos dentro de la coleccion users
         Foto foto=new Foto(snombre,sdescripcion,sevento,url);
-        Query documentos=mData.collection("users/"+user.getUid()+"/Fotos").whereEqualTo("nombre",true);
 
         mData.collection("users")
                 .document(user.getUid())

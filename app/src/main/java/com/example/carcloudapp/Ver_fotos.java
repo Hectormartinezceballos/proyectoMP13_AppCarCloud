@@ -25,9 +25,7 @@ public class Ver_fotos extends AppCompatActivity {
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     String usuario=user.getUid();
-    //********************************************************************en pruebas debajo
-    FirebaseStorage storage=FirebaseStorage.getInstance();
-   // StorageReference storageRef=storage.getReferenceFromUrl(usuario);
+
     public static Context ctx;
 
 

@@ -1,9 +1,7 @@
 package com.example.carcloudapp.Adaptador;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +90,8 @@ public class EditFotoAdapter extends FirestoreRecyclerAdapter<Foto,EditFotoAdapt
         holder.editarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre1,descripcion1,evento1,url;
-                nombre1=holder.nombre.getText().toString();
+                String descripcion1,evento1,url;
+
                 descripcion1=holder.descripcion.getText().toString();
                 evento1=holder.evento.getText().toString();
                 url=model.getUrl();
